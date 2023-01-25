@@ -2,11 +2,10 @@ package com.stargatex.lib.strgtxdemosdk.config
 
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
-import okio.Buffer
 import okio.buffer
 import okio.source
-import java.nio.charset.Charset
 
 /**
  * @author Lahiru J (lahirujay)
@@ -14,11 +13,14 @@ import java.nio.charset.Charset
  */
 class DefaultAccountConfiguration(private val context: Context) : AccountConfiguration {
     override fun retrieveConfig(resourceId: Int): AccountConfig {
-        val configBuffer = Buffer()
-        val rawResourceBufferedSource =
-            context.resources.openRawResource(resourceId).source().buffer()
-        rawResourceBufferedSource.readAll(configBuffer)
-        val jsonString = configBuffer.readString(Charset.forName("UTF-8"))
+
+        val jsonString = context.resources.openRawResource(resourceId).source().buffer().use {
+            it.readUtf8()
+        }
+
+        Log.d(
+            DefaultAccountConfiguration::class.java.simpleName, "jsonString $jsonString"
+        )
         return Gson().fromJson(jsonString, AccountConfig::class.java)
     }
 
