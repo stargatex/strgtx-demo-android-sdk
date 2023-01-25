@@ -50,6 +50,18 @@ afterEvaluate {
                 version '1.0.0'
                 artifact bundleReleaseAar
 
+                pom {
+                    name = 'strgtx-demo-android-sdk'
+                    description = 'Demo Android SDK'
+                    url = 'https://github.com/stargatex/strgtx-demo-android-sdk'
+                    licenses {
+                        license {
+                            name = 'Apache License'
+                            url = 'https://github.com/stargatex/strgtx-demo-android-sdk/blob/main/LICENSE'
+                        }
+                    }
+                }
+
                 pom.withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
                     configurations.implementation.allDependencies.each { dependency ->
