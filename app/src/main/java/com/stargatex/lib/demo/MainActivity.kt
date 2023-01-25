@@ -11,6 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.stargatex.lib.demo.ui.theme.DemoLibAppTheme
+import com.stargatex.lib.strgtxdemosdk.config.AccountConfig
+import com.stargatex.lib.strgtxdemosdk.config.AccountConfigurationStore
+import com.stargatex.lib.strgtxdemosdk.config.DefaultAccountConfiguration
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +25,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val accountConfig: AccountConfig =
+                        AccountConfigurationStore.loadAccountConfiguration(
+                            DefaultAccountConfiguration(this),
+                            R.raw.account
+                        )
+                    Greeting(accountConfig.name)
                 }
             }
         }
