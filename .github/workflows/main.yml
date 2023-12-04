@@ -1,0 +1,10 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  state_event_type:
+    runs-on: ubuntu-latest
+    steps:
+    - name: env
+      run: |
+        echo ${{github.env}}
